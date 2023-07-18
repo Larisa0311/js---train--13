@@ -72,7 +72,7 @@ function manipulateUrl(url) {
   if (urlObj.searchParams.has('oldParam')) {
     urlObj.searchParams.delete('oldParam')};
  
-return urlObj;
+return { href: urlObj.href, host: urlObj.host, search: urlObj.search, params: [...urlObj.searchParams.entries()], }
 }
 
 console.log("Завдання: 2 ==============================");
