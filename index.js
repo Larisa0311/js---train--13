@@ -403,7 +403,7 @@ function processURL(url, options) {
     }
  };
 
-  return JSON.stringify(urlObj);
+  return urlObj.href;
 }
 
 // Приклад використання функції processURL
@@ -506,7 +506,7 @@ function manipulateQuery(url, options) {
       }
      }
     };
-    return urlObj.toString();
+    return urlObj.href;
 }
 
 console.log("Завдання: 13 ==============================");
@@ -586,12 +586,17 @@ function sortUrlParams(url) {
   // Додаємо відсортовані параметри до URL.
   // Повертаємо новий URL як рядок.
   let urlObj = new URL(url);
-  let arrUrl = urlObj.searchParams.entries();
+  let paramsArray = Array.from(urlObj.searchParams.entries());
   
-  // let arrParams = arrUrl.sort((elem1, elem2) => {
-  //   return elem1 > elem2 ? 1 : -1;
-  // });
-  console.log(arrUrl);
+  paramsArray.sort((a, b) => { return (a[0] > b[0] ? 1 : -1)});
+
+  urlObj.search = "";
+
+  paramsArray.forEach(([key, value]) => {
+    urlObj.searchParams.append(key, value);
+  });
+
+  return urlObj.href;
 }
 
 // Приклад використання функції sortUrlParams
